@@ -8,21 +8,29 @@ module Refinery
         subject { FactoryGirl.build(:video) }
         before { subject.valid? }
 
-        it { should be_invalid }
-        its(:errors) { should include(:video_files) }
+        it { is_expected.to be_invalid }
+
+        describe '#errors' do
+          subject { super().errors }
+          it { is_expected.to include(:video_files) }
+        end
       end
 
       describe 'validate embed_tag presence' do
         subject { FactoryGirl.build(:video, :use_shared => true) }
         before { subject.valid? }
 
-        it { should be_invalid }
-        its(:errors) { should include(:embed_tag) }
+        it { is_expected.to be_invalid }
+
+        describe '#errors' do
+          subject { super().errors }
+          it { is_expected.to include(:embed_tag) }
+        end
       end
 
       describe 'should be valid' do
         subject { FactoryGirl.build(:valid_video) }
-        it { should be_valid }
+        it { is_expected.to be_valid }
       end
 
       describe 'should be valid again' do
@@ -30,7 +38,7 @@ module Refinery
         let(:video) { FactoryGirl.build(:video, :use_shared => false) }
         before {video.video_files << video_file}
         it 'should be valid video' do
-          video.should be_valid
+          expect(video).to be_valid
         end
       end
 
@@ -40,7 +48,7 @@ module Refinery
         context 'get option' do
           before { video.config = { :height => 100 } }
           it 'should return config option' do
-            video.height.should == video.config[:height]
+            expect(video.height).to eq(video.config[:height])
           end
         end
 
@@ -54,8 +62,8 @@ module Refinery
         context 'set default config when created' do
           let(:video) { Video.new }
           it 'should have config' do
-            video.config.class.should == Hash
-            video.config[:preload].should == 'true'
+            expect(video.config.class).to eq(Hash)
+            expect(video.config[:preload]).to eq('true')
           end
         end
 
@@ -64,7 +72,7 @@ module Refinery
           it 'should save height' do
             video.config[:height] = 100
             video.save!
-            video.config[:height].should == 100
+            expect(video.config[:height]).to eq(100)
           end
         end
 
@@ -75,13 +83,13 @@ module Refinery
           let(:video_file) { FactoryGirl.build(:video_file) }
           let(:video) { Video.new(:use_shared => false) }
           before do
-            video_file.stub(:url).and_return('url_to_video_file')
+            allow(video_file).to receive(:url).and_return('url_to_video_file')
             video.video_files << video_file
           end
           it 'should return video tag with source' do
-            video.to_html.should match(/^<video.*<\/video>$/)
-            video.to_html.should match(/<source src=["']url_to_video_file['"]/)
-            video.to_html.should match(/data-setup/)
+            expect(video.to_html).to match(/^<video.*<\/video>$/)
+            expect(video.to_html).to match(/<source src=["']url_to_video_file['"]/)
+            expect(video.to_html).to match(/data-setup/)
           end
         end
 
@@ -92,9 +100,9 @@ module Refinery
           end
 
           it 'should return video tag with iframe' do
-            video.to_html.should match(/^<iframe.*<\/iframe>$/)
-            video.to_html.should match(/www\.youtube\.com/)
-            video.to_html.should match(/wmode=transparent/)
+            expect(video.to_html).to match(/^<iframe.*<\/iframe>$/)
+            expect(video.to_html).to match(/www\.youtube\.com/)
+            expect(video.to_html).to match(/wmode=transparent/)
           end
 
           before do
@@ -103,7 +111,7 @@ module Refinery
           end
 
           it 'should set config from config before return tag' do
-            video.to_html.should match(/222.*111/)
+            expect(video.to_html).to match(/222.*111/)
           end
         end
       end
@@ -112,10 +120,10 @@ module Refinery
         let(:video) { FactoryGirl.build(:valid_video) }
         let(:video_file) { FactoryGirl.build(:video_file, :use_external => false) }
         it 'should return short info' do
-          video.short_info.to_s.should match(/.shared_source/i)
+          expect(video.short_info.to_s).to match(/.shared_source/i)
           video.use_shared = false
           video.video_files << video_file
-          video.short_info.to_s.should match(/.file/i)
+          expect(video.short_info.to_s).to match(/.file/i)
         end
       end
 

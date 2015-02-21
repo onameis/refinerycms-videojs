@@ -23,8 +23,8 @@ module Refinery
 
           it "shows two items" do
             visit refinery.videos_admin_videos_path
-            page.should have_content("UniqueTitleOne")
-            page.should have_content("UniqueTitleTwo")
+            expect(page).to have_content("UniqueTitleOne")
+            expect(page).to have_content("UniqueTitleTwo")
           end
         end
 
@@ -41,8 +41,8 @@ module Refinery
               fill_in "video_embed_tag", :with => '<iframe src="http://player.vimeo.com/video/39432556" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'
               click_button "Save"
 
-              page.should have_content("'Test Video' was successfully added.")
-              Refinery::Videos::Video.count.should == 1
+              expect(page).to have_content("'Test Video' was successfully added.")
+              expect(Refinery::Videos::Video.count).to eq(1)
             end
           end
 
@@ -52,8 +52,8 @@ module Refinery
               choose 'Use external source'
               fill_in 'video_video_files_attributes_0_external_url', :with => 'url'
               click_button "Save"
-              page.should have_content("'Test Video' was successfully added.")
-              Refinery::Videos::Video.count.should == 1
+              expect(page).to have_content("'Test Video' was successfully added.")
+              expect(Refinery::Videos::Video.count).to eq(1)
             end
           end
 
@@ -63,8 +63,8 @@ module Refinery
               file = File.join(Rails.root, 'spec/support/fixtures/video.flv')
               attach_file('video_video_files_attributes_0_file', file)
               click_button "Save"
-              page.should have_content("'Test Video' was successfully added.")
-              Refinery::Videos::Video.count.should == 1
+              expect(page).to have_content("'Test Video' was successfully added.")
+              expect(Refinery::Videos::Video.count).to eq(1)
             end
           end
 
@@ -80,9 +80,9 @@ module Refinery
             end
             fill_in "video_title", :with => "A different file_name"
             click_button "Save"
-            page.should have_content("'A different file_name' was successfully updated.")
-            page.should have_no_content("Test Video")
-            page.should have_content("A different file_name")
+            expect(page).to have_content("'A different file_name' was successfully updated.")
+            expect(page).to have_no_content("Test Video")
+            expect(page).to have_content("A different file_name")
           end
         end
 
@@ -91,8 +91,8 @@ module Refinery
           it "should succeed" do
             visit refinery.videos_admin_videos_path
             click_link "Remove this video forever"
-            page.should have_content("'UniqueTitleOne' was successfully removed.")
-            Refinery::Videos::Video.count.should == 0
+            expect(page).to have_content("'UniqueTitleOne' was successfully removed.")
+            expect(Refinery::Videos::Video.count).to eq(0)
           end
         end
 
@@ -103,8 +103,8 @@ module Refinery
           end
           it "should show list of available video" do
             visit refinery.insert_videos_admin_videos_path
-            page.should have_content("Test Video1")
-            page.should have_content("Test Video2")
+            expect(page).to have_content("Test Video1")
+            expect(page).to have_content("Test Video2")
           end
 
         end

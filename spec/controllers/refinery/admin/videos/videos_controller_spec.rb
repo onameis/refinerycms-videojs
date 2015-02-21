@@ -18,20 +18,20 @@ describe Refinery::Videos::Admin::VideosController do
     end
     it 'should get videos html' do
       get :insert, :app_dialog => true, :dialog => true
-      response.should be_success
-      response.body.should match(/TestVideo/)
+      expect(response).to be_success
+      expect(response.body).to match(/TestVideo/)
     end
 
     it 'should get preview' do
       get :dialog_preview, :id => "video_#{@video.id}", :format => :js
-      response.should be_success
-      response.body.should match(/iframe/)
+      expect(response).to be_success
+      expect(response.body).to match(/iframe/)
     end
 
     it 'should get preview' do
       post :append_to_wym, :video_id => @video.id, 'video' => {'height' => '100'}, :format => :js
-      response.should be_success
-      response.body.should match(/iframe/)
+      expect(response).to be_success
+      expect(response.body).to match(/iframe/)
     end
 
   end
