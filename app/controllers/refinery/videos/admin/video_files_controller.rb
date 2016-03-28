@@ -10,6 +10,11 @@ module Refinery
           redirect_to refinery.edit_videos_admin_video_path(@video), :notice => "#{@video_file.file_name} was successfully removed."
         end
 
+        def video_params
+            params.require(:video).permit(permitted_video_params)
+        end
+
+
       end
     end
   end

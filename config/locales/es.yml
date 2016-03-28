@@ -1,13 +1,13 @@
 es:
   wym_tools:
-    add_video: Video 
+    add_video: Video
   refinery:
     admin:
       dashboard:
         additional_dashboard_menu_items:
           create_new: Añadir nuevo video
     plugins:
-      videos:
+      refinerycms_videos:
         title: Videos
     videos:
       admin:

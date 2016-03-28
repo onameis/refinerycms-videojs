@@ -1,13 +1,13 @@
 zh-CN:
   wym_tools:
-    add_video: 添加视频 
+    add_video: 添加视频
   refinery:
     admin:
       dashboard:
         additional_dashboard_menu_items:
           create_new: 添加新视频
     plugins:
-      videos:
+      refinerycms_videos:
         title: 视频
     videos:
       admin:

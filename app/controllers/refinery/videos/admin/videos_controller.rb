@@ -43,6 +43,10 @@ module Refinery
           @embedded = true if @video.use_shared
         end
 
+        def video_params
+          params.require(:video).permit(permitted_video_params)
+        end
+
         private
 
         def paginate_videos
@@ -53,6 +57,14 @@ module Refinery
           @embedded = true if params['embedded']
         end
 
+        def permitted_video_params
+          [
+            :id, :title, :poster_id, :image_alt, :position, :config, :embed_tag, :use_shared,
+            :autoplay, :width , :height, :controls, :preload, :loop,
+            video_files_attributes: [:id, :file, :file_mime_type, :position, :use_external, :external_url, :_destroy]
+          ]
+
+        end
       end
     end
   end

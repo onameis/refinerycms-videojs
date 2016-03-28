@@ -1,13 +1,13 @@
 pt-BR:
   wym_tools:
-    add_video: Vídeo 
+    add_video: Vídeo
   refinery:
     admin:
       dashboard:
         additional_dashboard_menu_items:
           create_new: Adicionar novo vídeo
     plugins:
-      videos:
+      refinerycms_videos:
         title: Vídeos
     videos:
       admin:

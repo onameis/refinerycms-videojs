@@ -23,10 +23,6 @@ module Refinery
           :controls => "true", :preload => "true", :loop => "true"
       }
 
-      attr_accessible :title, :poster_id, :video_files_attributes,
-                      :position, :config, :embed_tag, :use_shared,
-                      *CONFIG_OPTIONS.keys
-
       # Create getters and setters
       CONFIG_OPTIONS.keys.each do |option|
         define_method option do
@@ -59,9 +55,9 @@ module Refinery
         sources = []
         video_files.each do |file|
           if file.use_external
-            sources << ["<source src='#{file.external_url}' type='#{file.file_mime_type}'/>"]
+            sources << ["<source src='#{file.external_url}' type='#{file.mime_type || file.file_mime_type}'/>"]
           else
-            sources << ["<source src='#{file.url}' type='#{file.file_mime_type}'/>"]
+            sources << ["<source src='#{file.url}' type='#{file.mime_type || file.file_mime_type}'/>"]
           end if file.exist?
         end
         html = %Q{<video id="video_#{self.id}" class="video-js #{Refinery::Videos.skin_css_class}" width="#{config[:width]}" height="#{config[:height]}" data-setup=' {#{data_setup.join(',')}}'>#{sources.join}</video>}

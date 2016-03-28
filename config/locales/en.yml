@@ -1,13 +1,9 @@
 en:
   wym_tools:
-    add_video: Add Video 
+    add_video: Add Video
   refinery:
-    admin:
-      dashboard:
-        additional_dashboard_menu_items:
-          create_new: Add New Video
     plugins:
-      videos:
+      refinery_videos:
         title: Videos
     videos:
       admin:

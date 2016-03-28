@@ -13,6 +13,6 @@ onCloseDialog = function(){
 WYMeditor.editor.prototype.exec_without_video = WYMeditor.editor.prototype.exec;
 WYMeditor.editor.prototype.exec = function(cmd) {
 	if (cmd == 'AddVideo') {
-		this.dialog('Video');
+		this.dialog('video');
 	} else this.exec_without_video(cmd);
 }

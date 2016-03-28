@@ -7,7 +7,7 @@ sk:
         additional_dashboard_menu_items:
           create_new: Pridať nové video
     plugins:
-      videos:
+      refinerycms_videos:
         title: Videá
     videos:
       admin:

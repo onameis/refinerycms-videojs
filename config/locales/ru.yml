@@ -5,7 +5,7 @@ ru:
         additional_dashboard_menu_items:
           create_new: Добавить видео
     plugins:
-      videos:
+      refinerycms_videos:
         title: Видео
     videos:
       admin:

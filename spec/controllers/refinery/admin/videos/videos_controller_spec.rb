@@ -1,17 +1,8 @@
 require 'spec_helper'
 
 describe Refinery::Videos::Admin::VideosController do
-  render_views
 
-  before do
-    @user = Refinery::User.create!(:username => 'admin@admin.com',
-                                   :email => 'admin@admin.com',
-                                   :password => 'admin@admin.com',
-                                   :password_confirmation => 'admin@admin.com')
-    @user.create_first
-    sign_in @user
-  end
-
+  let(:logged_in_user) { Refinery::Core::NilUser.new }
   describe 'insert video' do
     before do
       @video = FactoryGirl.create(:valid_video, :title => "TestVideo")

@@ -7,17 +7,27 @@ Refinery::Videos.configure do |config|
 
     # Configure white-listed mime types for validation
     #config.whitelisted_mime_types = <%= Refinery::Videos.whitelisted_mime_types %>
-	
+
     # Configure skin. Put css class name to activate skin. For YouTube like skin put tubecss and add css with images to assets path.
     # config.skin_css_class = <%= Refinery::Videos.skin_css_class %>
 
     # Configure Dragonfly
-    # This is where in the middleware stack to insert the Dragonfly middleware
-    # config.dragonfly_insert_before = <%= Refinery::Videos.dragonfly_insert_before %>
-    # config.dragonfly_secret = <%= Refinery::Videos.dragonfly_secret %>
-    # If you decide to trust file extensions replace :ext below with :format
-    # config.dragonfly_url_format = <%= Refinery::Videos.dragonfly_url_format %>
-    # config.datastore_root_path = <%= Refinery::Videos.datastore_root_path %>
-    # config.trust_file_extensions = <%= Refinery::Videos.trust_file_extensions %>
+    # config.dragonfly_verify_urls = <%= Refinery::Videos.dragonfly_verify_urls %>
+    config.dragonfly_secret = <%= Refinery::Videos.dragonfly_secret.inspect %>
+    # config.dragonfly_url_format = <%= Refinery::Videos.dragonfly_url_format.inspect %>
+    # config.dragonfly_url_host = <%= Refinery::Videos.dragonfly_url_host.inspect %>
+    # config.datastore_root_path = <%= Refinery::Videos.datastore_root_path.inspect %>
 
+    # Configure Dragonfly custom storage backend
+    # The custom_backend setting by default defers to the core setting for this but can be set just for videos.
+    # config.custom_backend_class = <%= Refinery::Videos.custom_backend_class.inspect %>
+    # config.custom_backend_opts = <%= Refinery::Videos.custom_backend_opts.inspect %>
+
+    # Configure S3 (you can also use ENV for this)
+    # The s3_backend setting by default defers to the core setting for this but can be set just for videos.
+    # config.s3_backend = Refinery::Core.s3_backend
+    # config.s3_bucket_name = ENV['S3_BUCKET']
+    # config.s3_access_key_id = ENV['S3_KEY']
+    # config.s3_secret_access_key = ENV['S3_SECRET']
+    # config.s3_region = ENV['S3_REGION']
 end

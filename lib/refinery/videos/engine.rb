@@ -6,30 +6,26 @@ module Refinery
 
       engine_name :refinery_videos
 
-      initializer 'attach-refinery-videos-with-dragonfly', :after => :load_config_initializers do |app|
+      initializer 'attach-refinery-videos-with-dragonfly', before: :finisher_hook do |app|
         ::Refinery::Videos::Dragonfly.configure!
         ::Refinery::Videos::Dragonfly.attach!(app)
       end
 
-      initializer "register refinerycms_videos plugin" do
+     before_inclusion do
         Refinery::Plugin.register do |plugin|
-          plugin.name = "videos"
-          plugin.url = proc { Refinery::Core::Engine.routes.url_helpers.videos_admin_videos_path }
           plugin.pathname = root
-          plugin.activity = {
-            :class_name => :'refinery/videos/video',
-            :title => 'title'
-          }
-
+          plugin.name = 'refinery_videos'
+#          plugin.menu_match = %r{refinery/video(_dialog)?s$}
+          plugin.menu_match = %r{refinery/videos/video(_dialog)?s$}
+          plugin.url = proc { Refinery::Core::Engine.routes.url_helpers.videos_admin_videos_path }
+          plugin.always_allow_access = true
         end
       end
 
-      config.to_prepare do
-        require 'refinery/videos/dialogs_controller'
-      end
       config.after_initialize do
         Refinery.register_extension(Refinery::Videos)
       end
+
     end
   end
 end
