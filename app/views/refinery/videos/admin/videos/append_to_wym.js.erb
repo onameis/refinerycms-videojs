@@ -2,14 +2,16 @@ parent.$.fn.getIndex = function(){
     var $p=$(this).parent().children();
     return $p.index(this);
 }
-selectedPart = parent.$('#page_parts .ui-tabs-selected').getIndex();
+selectedPart = parent.$('#page_parts .ui-tabs-active').getIndex();
 wym = parent.$.wymeditors(selectedPart);
 selectedBlock = wym.selected();
+html = "<%= render(partial: "show_video", locals: {video: @video}) %>"
 if (selectedBlock !== null) {
-   $(selectedBlock).append('<%= escape_javascript(@html_for_wym) %>');
+  $(selectedBlock).append(html);
 } else {
-   wym.html(wym.html() + '<%= escape_javascript(@html_for_wym) %>');
+    wym.html(wym.html() + html);
 }
 wym.update();
-close_dialog();
 wym.close_dialog();
+close_dialog();
+

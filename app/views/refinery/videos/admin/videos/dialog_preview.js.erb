@@ -1,2 +1,2 @@
-$('#dialog_preview').html('<%= escape_javascript(@preview_html) %>');
+$('#dialog_preview').html('<%= render(partial: "show_video", locals: {video: @video}) %>');
 $('#preview_form').html('<%= escape_javascript(render("preview_form")) %>');

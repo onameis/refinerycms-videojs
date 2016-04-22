@@ -3,6 +3,7 @@ require 'dragonfly'
 module Refinery
   module Videos
     class Video < Refinery::Core::BaseModel
+    include ActionView::Helpers::TagHelper
 
       self.table_name = 'refinery_videos'
       acts_as_indexed :fields => [:title]
@@ -38,32 +39,6 @@ module Refinery
       after_initialize :set_default_config
       #####################################
 
-      def to_html
-        if use_shared
-          update_from_config
-          return embed_tag.html_safe
-        end
-
-        data_setup = []
-        CONFIG_OPTIONS.keys.each do |option|
-          if option && (option != :width && option != :height)
-            data_setup << "\"#{option}\": #{config[option] || '\"auto\"'}"
-          end
-        end
-
-        data_setup << "\"poster\": \"#{poster.url}\"" if poster
-        sources = []
-        video_files.each do |file|
-          if file.use_external
-            sources << ["<source src='#{file.external_url}' type='#{file.mime_type || file.file_mime_type}'/>"]
-          else
-            sources << ["<source src='#{file.url}' type='#{file.mime_type || file.file_mime_type}'/>"]
-          end if file.exist?
-        end
-        html = %Q{<video id="video_#{self.id}" class="video-js #{Refinery::Videos.skin_css_class}" width="#{config[:width]}" height="#{config[:height]}" data-setup=' {#{data_setup.join(',')}}'>#{sources.join}</video>}
-
-        html.html_safe
-      end
 
 
       def short_info

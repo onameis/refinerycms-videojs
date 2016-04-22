@@ -3,9 +3,9 @@ module Refinery
     module Admin
       class VideosController < ::Refinery::AdminController
 
+      helper VideosHelper
         crudify :'refinery/videos/video',
                 :title_attribute => 'title',
-                :xhr_paging => true,
                 :order => 'position ASC',
                 :sortable => true
 
@@ -31,14 +31,14 @@ module Refinery
           params['video'].each do |key, value|
             @video.config[key.to_sym] = value
           end
-          @html_for_wym = @video.to_html
+          #@html_for_wym = @video.to_html
         end
 
         def dialog_preview
           @video = Video.find(params[:id].delete('video_'))
           w, h = @video.config[:width], @video.config[:height]
           @video.config[:width], @video.config[:height] = 300, 200
-          @preview_html = @video.to_html
+         # @preview_html = embed_html @video
           @video.config[:width], @video.config[:height] = w, h
           @embedded = true if @video.use_shared
         end
