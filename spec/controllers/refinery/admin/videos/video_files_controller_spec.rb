@@ -12,8 +12,8 @@ describe Refinery::Videos::Admin::VideoFilesController do
 
     it 'should delete video_file' do
       post :destroy, :id => @video_file.id
-      response.status.should redirect_to(refinery.edit_videos_admin_video_path(@video))
-      ::Refinery::Videos::VideoFile.count.should == 0
+      expect(response.status).to redirect_to(refinery.edit_videos_admin_video_path(@video))
+      expect(::Refinery::Videos::VideoFile.count).to eq(0)
     end
 
   end
