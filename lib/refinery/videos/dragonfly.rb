@@ -39,7 +39,6 @@ module Refinery
           if Videos.custom_backend?
             app_images.datastore = Videos.custom_backend_class.new(Videos.custom_backend_opts)
           end
-          end
         end
 
         # Injects Dragonfly::Middleware for Refinery::Videos into the stack
