@@ -24,10 +24,10 @@ module Refinery
                 bucket_name:   Refinery::Videos.s3_bucket_name,
                 access_key_id: Refinery::Videos.s3_access_key_id,
                 secret_access_key: Refinery::Videos.s3_secret_access_key
-              }.tap do |ds|
-                # S3 Region otherwise defaults to 'us-east-1'
-                ds.region = Refinery::Videos.s3_region if Refinery::Videos.s3_region
-              end
+              }.tap { |ds|
+	                # S3 Region otherwise defaults to 'us-east-1'
+	                ds.region = Refinery::Videos.s3_region if Refinery::Videos.s3_region
+                }
             end
           end
         end
