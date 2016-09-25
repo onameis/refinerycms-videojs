@@ -34,8 +34,6 @@ include ActionView::Context
         type: file.mime_type || file.file_mime_type
       }
       source = tag(:source, options, escape: false )
-      Rails.logger.debug '---------'
-      Rails.logger.debug source
       buffer  << source if file.exist?
     end
   end

@@ -38,7 +38,7 @@ module Refinery
           @video = Video.find(params[:id].delete('video_'))
           w, h = @video.config[:width], @video.config[:height]
           @video.config[:width], @video.config[:height] = 300, 200
-         # @preview_html = embed_html @video
+          @preview_html = embed_html @video
           @video.config[:width], @video.config[:height] = w, h
           @embedded = true if @video.use_shared
         end
